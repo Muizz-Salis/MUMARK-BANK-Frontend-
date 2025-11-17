@@ -1,0 +1,27 @@
+/* App Component Styles */
+.with-navbar {
+  padding-top: 64px; /* Height of fixed navbar */
+  min-height: 100vh;
+}
+
+.without-navbar {
+  padding-top: 0;
+  min-height: 100vh;
+}
+
+/* Smooth transitions */
+app-navbar {
+  transition: all 0.3s ease-in-out;
+}
+
+.with-navbar,
+.without-navbar {
+  transition: padding-top 0.3s ease-in-out;
+}
+
+/* Reset any default margins/padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

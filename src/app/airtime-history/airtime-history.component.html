@@ -1,0 +1,37 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">📞 Airtime History</h2>
+
+  <div *ngIf="airtimeHistory.length > 0; else noHistory" class="overflow-x-auto shadow-lg rounded-lg">
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">#</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Account ID</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Phone Number</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Amount</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Transaction Date</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let record of airtimeHistory; let i = index" class="hover:bg-gray-100 transition">
+          <td class="px-6 py-4 text-gray-700 font-medium">{{ i + 1 }}</td>
+          <td class="px-6 py-4 text-gray-700">{{ record.account_id }}</td>
+          <td class="px-6 py-4 text-gray-700">{{ record.phone_number }}</td>
+          <td class="px-6 py-4 text-gray-700">₦{{ record.amount }}</td>
+          <td class="px-6 py-4 text-gray-700">{{ record.transaction_date }}</td>
+          <td class="px-6 py-4">
+            <span [ngClass]="record.status === 'Success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'"
+              class="px-3 py-1 rounded-full text-xs font-semibold">
+              {{ record.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noHistory>
+    <p class="text-center text-gray-500 mt-6 text-lg">No airtime history found.</p>
+  </ng-template>
+</div>

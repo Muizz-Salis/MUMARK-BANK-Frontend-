@@ -1,0 +1,298 @@
+<!-- Modern Transaction History Page with Gradient Design -->
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  
+  <!-- Decorative Background Elements -->
+  <div class="absolute top-20 -left-20 w-72 h-72 bg-gradient-to-br from-[#ff817c]/20 to-[#f6433d]/20 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#f6433d]/20 to-[#d63832]/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    
+    <!-- Page Header -->
+    <div class="text-center mb-8 animate-fade-in-up">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#ff817c]/10 to-[#f6433d]/10 rounded-full mb-4">
+        <span class="text-2xl">📊</span>
+        <span class="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] to-[#f6433d]">
+          Financial Overview
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832] mb-2">
+        Transaction History
+      </h1>
+      <p class="text-gray-600 text-sm md:text-base">
+        View all your recent transactions and activities
+      </p>
+    </div>
+
+    <!-- Account Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+      <!-- Total Transactions Card -->
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 hover:shadow-xl transition-all duration-300 group">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <span class="text-2xl">📈</span>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-medium">Total Transactions</p>
+            <p class="text-2xl font-bold text-gray-800">{{ transactionHistory.length }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credits Card -->
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 hover:shadow-xl transition-all duration-300 group">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <span class="text-2xl">💰</span>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-medium">Total Credits</p>
+            <p class="text-2xl font-bold text-green-600">
+              {{ creditCount }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Debits Card -->
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 hover:shadow-xl transition-all duration-300 group">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <span class="text-2xl">💸</span>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-medium">Total Debits</p>
+            <p class="text-2xl font-bold text-red-600">
+              {{ debitCount }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transactions Table Card -->
+    <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200/50 overflow-hidden animate-fade-in-up" style="animation-delay: 0.2s;">
+      
+      <!-- Table Header -->
+      <div class="bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832] p-6 text-white">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+              <span class="text-2xl">🧾</span>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold">All Transactions</h2>
+              <p class="text-white/80 text-sm">Complete transaction records</p>
+            </div>
+          </div>
+          <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl">
+            <p class="text-sm font-semibold">{{ transactionHistory.length }} Records</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="transactionHistory.length === 0" class="p-12 text-center">
+        <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+          <span class="text-4xl">📭</span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">No Transactions Yet</h3>
+        <p class="text-gray-600 mb-6">Your transaction history will appear here once you make your first transaction.</p>
+        <a href="/deposit" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff817c] to-[#f6433d] text-white font-semibold rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
+          <span>💰</span>
+          Make First Deposit
+        </a>
+      </div>
+
+      <!-- Desktop Table View -->
+      <div *ngIf="transactionHistory.length > 0" class="hidden lg:block overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <div class="flex items-center gap-2">
+                  <span>#</span>
+                </div>
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <div class="flex items-center gap-2">
+                  <span>📤</span>
+                  <span>Sender</span>
+                </div>
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <div class="flex items-center gap-2">
+                  <span>📥</span>
+                  <span>Receiver</span>
+                </div>
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <div class="flex items-center gap-2">
+                  <span>💵</span>
+                  <span>Amount</span>
+                </div>
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <div class="flex items-center gap-2">
+                  <span>🏷️</span>
+                  <span>Type</span>
+                </div>
+              </th>
+              <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                <div class="flex items-center gap-2">
+                  <span>📅</span>
+                  <span>Date & Time</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-100">
+            <tr *ngFor="let transaction of transactionHistory; let i = index" 
+                class="hover:bg-gradient-to-r hover:from-[#ff817c]/5 hover:to-[#f6433d]/5 transition-all duration-200 group">
+              <!-- Row Number -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 bg-gradient-to-br from-gray-100 to-gray-200 group-hover:from-[#ff817c]/20 group-hover:to-[#f6433d]/20 rounded-lg flex items-center justify-center font-bold text-gray-700 text-sm transition-all duration-200">
+                    {{ i + 1 }}
+                  </div>
+                </div>
+              </td>
+              
+              <!-- Sender Info -->
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span class="text-blue-600 font-bold text-sm">{{ transaction.sender_name?.charAt(0)?.toUpperCase() || 'S' }}</span>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="font-semibold text-gray-900 truncate">{{ transaction.sender_name }}</p>
+                    <p class="text-xs text-gray-500">{{ transaction.sender_account_number }}</p>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Receiver Info -->
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span class="text-purple-600 font-bold text-sm">{{ transaction.receiver_name?.charAt(0)?.toUpperCase() || 'R' }}</span>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="font-semibold text-gray-900 truncate">{{ transaction.receiver_name }}</p>
+                    <p class="text-xs text-gray-500">{{ transaction.receiver_account_number }}</p>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Amount -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center gap-1">
+                  <span class="text-lg font-bold text-gray-800">₦{{ transaction.amount | number:'1.2-2' }}</span>
+                </div>
+              </td>
+
+              <!-- Transaction Type -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+                      [ngClass]="{
+                        'bg-green-100 text-green-700 border border-green-200': transaction.transaction_type === 'credit',
+                        'bg-red-100 text-red-700 border border-red-200': transaction.transaction_type === 'debit'
+                      }">
+                  <span *ngIf="transaction.transaction_type === 'credit'">↓</span>
+                  <span *ngIf="transaction.transaction_type === 'debit'">↑</span>
+                  <span class="capitalize">{{ transaction.transaction_type }}</span>
+                </span>
+              </td>
+
+              <!-- Date & Time -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm">
+                  <p class="font-semibold text-gray-900">{{ transaction.transaction_date | date:'MMM d, y' }}</p>
+                  <p class="text-xs text-gray-500">{{ transaction.transaction_date | date:'h:mm a' }}</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Card View -->
+      <div *ngIf="transactionHistory.length > 0" class="lg:hidden p-4 space-y-4">
+        <div *ngFor="let transaction of transactionHistory; let i = index" 
+             class="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-4 border border-gray-200 hover:shadow-lg transition-all duration-300">
+          
+          <!-- Card Header -->
+          <div class="flex items-center justify-between mb-3 pb-3 border-b border-gray-200">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                {{ i + 1 }}
+              </div>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
+                    [ngClass]="{
+                      'bg-green-100 text-green-700': transaction.transaction_type === 'credit',
+                      'bg-red-100 text-red-700': transaction.transaction_type === 'debit'
+                    }">
+                <span *ngIf="transaction.transaction_type === 'credit'">↓</span>
+                <span *ngIf="transaction.transaction_type === 'debit'">↑</span>
+                {{ transaction.transaction_type }}
+              </span>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-gray-500">{{ transaction.transaction_date | date:'MMM d' }}</p>
+              <p class="text-xs text-gray-500">{{ transaction.transaction_date | date:'h:mm a' }}</p>
+            </div>
+          </div>
+
+          <!-- Amount -->
+          <div class="mb-3 text-center py-2">
+            <p class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] to-[#f6433d]">
+              ₦{{ transaction.amount | number:'1.2-2' }}
+            </p>
+          </div>
+
+          <!-- Sender & Receiver -->
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-blue-600 font-bold">{{ transaction.sender_name?.charAt(0)?.toUpperCase() || 'S' }}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-gray-500 mb-0.5">From</p>
+                <p class="font-semibold text-gray-900 text-sm truncate">{{ transaction.sender_name }}</p>
+                <p class="text-xs text-gray-500">{{ transaction.sender_account_number }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-center">
+              <span class="text-gray-400">→</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-purple-600 font-bold">{{ transaction.receiver_name?.charAt(0)?.toUpperCase() || 'R' }}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-gray-500 mb-0.5">To</p>
+                <p class="font-semibold text-gray-900 text-sm truncate">{{ transaction.receiver_name }}</p>
+                <p class="text-xs text-gray-500">{{ transaction.receiver_account_number }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+      <a href="/mainpage" 
+         class="inline-flex items-center gap-2 px-6 py-3 bg-white/80 backdrop-blur-sm border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:shadow-lg hover:border-[#f6433d] transition-all duration-300">
+        <span>🏠</span>
+        <span>Back to Dashboard</span>
+      </a>
+      <a href="/sendmoney" 
+         class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff817c] to-[#f6433d] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300">
+        <span>💸</span>
+        <span>Send Money</span>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div *ngIf="currentUser" class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="max-w-2xl w-full p-8 bg-white rounded-2xl shadow-xl text-center">
+    <img 
+      *ngIf="currentUser.profile_picture" 
+      [src]="'http://localhost/Bank_App_Php/pictures/' + currentUser.profile_picture" 
+      alt="Profile Picture" 
+      class="w-28 h-28 rounded-full border-4 border-blue-500 shadow-md mx-auto"
+    >
+    <form (ngSubmit)="uploadProfilePicture()" class="mt-6 flex justify-center items-center space-x-3">
+      <input type="file" #fileInput class="block w-48 text-sm text-gray-700 border border-gray-300 rounded px-2 py-1">
+      <button type="submit" class="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition font-medium">
+        Upload
+      </button>
+    </form>
+    <div class="mt-8 space-y-2 text-left">
+      <p class="text-gray-700"><span class="font-semibold text-gray-900">Name:</span> {{ currentUser.first_name }} {{ currentUser.last_name }}</p>
+      <p class="text-gray-700"><span class="font-semibold text-gray-900">Gender:</span> {{ currentUser.gender }}</p>
+      <p class="text-gray-700"><span class="font-semibold text-gray-900">Email:</span> {{ currentUser.email }}</p>
+      <p class="text-gray-700"><span class="font-semibold text-gray-900">Phone Number:</span> {{ currentUser.phone_number }}</p>
+      <p class="text-gray-700"><span class="font-semibold text-gray-900">Address:</span> {{ currentUser.address }}</p>
+      <p *ngIf="accountDetails" class="text-gray-700"><span class="font-semibold text-gray-900">Account Number:</span> {{ accountDetails.account_number }}</p>
+      <p *ngIf="accountDetails" class="text-gray-700"><span class="font-semibold text-gray-900">Balance:</span> {{ accountDetails.balance | currency }}</p>
+    </div>
+  </div>
+</div>

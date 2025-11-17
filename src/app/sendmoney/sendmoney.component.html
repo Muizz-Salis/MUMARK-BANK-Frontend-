@@ -1,0 +1,319 @@
+<!-- Modern Send Money Page with Gradient Design -->
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  
+  <!-- Decorative Background Elements -->
+  <div class="absolute top-20 -left-20 w-72 h-72 bg-gradient-to-br from-[#ff817c]/20 to-[#f6433d]/20 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#f6433d]/20 to-[#d63832]/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#ff817c]/10 to-[#f6433d]/10 rounded-full blur-3xl"></div>
+
+  <div class="max-w-2xl mx-auto relative z-10">
+    
+    <!-- Page Header -->
+    <div class="text-center mb-8 animate-fade-in-up">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#ff817c]/10 to-[#f6433d]/10 rounded-full mb-4">
+        <span class="text-2xl">💸</span>
+        <span class="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] to-[#f6433d]">
+          Swift Transfer
+        </span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832] mb-2">
+        Send Money
+      </h1>
+      <p class="text-gray-600 text-sm md:text-base">
+        Transfer funds instantly and securely
+      </p>
+    </div>
+
+    <!-- Send Money Form Card -->
+    <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200/50 overflow-hidden animate-fade-in-up" style="animation-delay: 0.1s;">
+      
+      <!-- Card Header with Gradient -->
+      <div class="bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832] p-6 text-white">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+            <span class="text-2xl">💳</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold">Transfer Details</h2>
+            <p class="text-white/80 text-sm">Enter recipient and amount information</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Content -->
+      <form [formGroup]="sendMoneyForm" (ngSubmit)="openConfirmModal()" class="p-6 md:p-8 space-y-6">
+        
+        <!-- Sender Account Number Field -->
+        <div class="space-y-2 animate-fade-in-up" style="animation-delay: 0.2s;">
+          <label for="senderAccountNumber" class="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <span class="text-lg">🏦</span>
+            Your Account Number
+          </label>
+          <input 
+            id="senderAccountNumber" 
+            formControlName="senderAccountNumber" 
+            type="text" 
+            placeholder="Enter your account number"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#f6433d] focus:ring-4 focus:ring-[#f6433d]/10 transition-all duration-300 outline-none text-gray-700 font-medium placeholder:text-gray-400">
+          
+          <!-- Sender Account Name Display -->
+          <div *ngIf="senderAccountName" class="flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-xl">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm font-semibold text-green-700">{{ senderAccountName }}</span>
+          </div>
+        </div>
+
+        <!-- Transfer Arrow -->
+        <div class="flex justify-center animate-fade-in-up" style="animation-delay: 0.3s;">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Receiver Account Number Field -->
+        <div class="space-y-2 animate-fade-in-up" style="animation-delay: 0.4s;">
+          <label for="receiverAccountNumber" class="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <span class="text-lg">👤</span>
+            Recipient Account Number
+          </label>
+          <input 
+            id="receiverAccountNumber" 
+            formControlName="receiverAccountNumber" 
+            type="text" 
+            placeholder="Enter recipient's account number"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#f6433d] focus:ring-4 focus:ring-[#f6433d]/10 transition-all duration-300 outline-none text-gray-700 font-medium placeholder:text-gray-400">
+          
+          <!-- Receiver Account Name Display -->
+          <div *ngIf="receiverAccountName" class="flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-xl">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm font-semibold text-green-700">{{ receiverAccountName }}</span>
+          </div>
+        </div>
+
+        <!-- Amount Field -->
+        <div class="space-y-2 animate-fade-in-up" style="animation-delay: 0.5s;">
+          <label for="amount" class="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <span class="text-lg">💵</span>
+            Amount to Send
+          </label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-lg">₦</span>
+            <input 
+              id="amount" 
+              formControlName="amount" 
+              type="number" 
+              placeholder="0.00"
+              min="1"
+              step="0.01"
+              class="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#f6433d] focus:ring-4 focus:ring-[#f6433d]/10 transition-all duration-300 outline-none text-gray-700 font-bold text-lg placeholder:text-gray-400">
+          </div>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <div class="flex items-center gap-1">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Minimum: ₦1.00</span>
+            </div>
+            <span class="font-semibold text-[#f6433d]">No hidden fees</span>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="message" class="animate-fade-in-up rounded-xl p-4 flex items-start gap-3 bg-red-50 border-2 border-red-200">
+          <div class="flex-shrink-0 text-2xl">⚠️</div>
+          <p class="flex-1 font-medium text-red-700">{{ message }}</p>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4 animate-fade-in-up" style="animation-delay: 0.6s;">
+          <button 
+            type="submit"
+            [disabled]="sendMoneyForm.invalid || buttonState === 'Sending'"
+            class="group relative w-full bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832] text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden">
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <span *ngIf="buttonState === 'Send Money'">💸</span>
+              <span *ngIf="buttonState === 'Sending'" class="animate-spin">⏳</span>
+              <span *ngIf="buttonState === 'Sent'">✅</span>
+              {{ buttonState }}
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#d63832] via-[#f6433d] to-[#ff817c] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Security Notice -->
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-t-2 border-blue-100 p-6 animate-fade-in-up" style="animation-delay: 0.7s;">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+            <span class="text-xl">🔒</span>
+          </div>
+          <div class="flex-1">
+            <h3 class="font-bold text-gray-800 mb-1">Secure & Encrypted</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              All transactions are protected with bank-level security. You'll verify with your password before completing any transfer.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in-up" style="animation-delay: 0.8s;">
+      <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-gray-200/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-center">
+          <div class="text-3xl mb-2">⚡</div>
+          <h4 class="font-bold text-gray-800 text-sm mb-1">Instant Transfer</h4>
+          <p class="text-xs text-gray-600">Money sent in seconds</p>
+        </div>
+      </div>
+      <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-gray-200/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-center">
+          <div class="text-3xl mb-2">💯</div>
+          <h4 class="font-bold text-gray-800 text-sm mb-1">No Extra Fees</h4>
+          <p class="text-xs text-gray-600">What you send is what they get</p>
+        </div>
+      </div>
+      <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-gray-200/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-center">
+          <div class="text-3xl mb-2">🛡️</div>
+          <h4 class="font-bold text-gray-800 text-sm mb-1">Protected</h4>
+          <p class="text-xs text-gray-600">Military-grade encryption</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Password Confirmation Modal -->
+<div *ngIf="showModal" 
+     class="fixed inset-0 z-50 overflow-y-auto animate-fade-in"
+     style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px);">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    
+    <!-- Modal Panel -->
+    <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full animate-fade-in-up">
+      
+      <!-- Modal Header with Gradient -->
+      <div class="bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832] px-6 py-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+            <span class="text-2xl">🔐</span>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Confirm Transfer</h3>
+            <p class="text-white/80 text-sm">Review and authorize transaction</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="bg-white px-6 py-6 space-y-6">
+        
+        <!-- Transaction Summary -->
+        <div class="space-y-4">
+          <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-3">
+            <span class="text-lg">📋</span>
+            Transaction Details
+          </h4>
+          
+          <!-- From Section -->
+          <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-4">
+            <p class="text-xs text-blue-600 font-semibold mb-1 uppercase">From</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white font-bold flex-shrink-0">
+                {{ senderAccountName.charAt(0).toUpperCase() || 'S' }}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-bold text-gray-900 truncate">{{ senderAccountName || 'N/A' }}</p>
+                <p class="text-sm text-gray-600">{{ sendMoneyForm.get('senderAccountNumber')?.value || 'N/A' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flex justify-center">
+            <div class="w-8 h-8 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-full flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- To Section -->
+          <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-4">
+            <p class="text-xs text-purple-600 font-semibold mb-1 uppercase">To</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center text-white font-bold flex-shrink-0">
+                {{ receiverAccountName.charAt(0).toUpperCase() || 'R' }}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-bold text-gray-900 truncate">{{ receiverAccountName || 'N/A' }}</p>
+                <p class="text-sm text-gray-600">{{ sendMoneyForm.get('receiverAccountNumber')?.value || 'N/A' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amount Section -->
+          <div class="bg-gradient-to-r from-green-50 to-emerald-100 rounded-2xl p-6 text-center border-2 border-green-200">
+            <p class="text-xs text-green-600 font-semibold mb-2 uppercase">Transfer Amount</p>
+            <p class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] to-[#f6433d]">
+              ₦{{ sendMoneyForm.get('amount')?.value | number:'1.2-2' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="space-y-2">
+          <label for="password" class="block text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <span class="text-lg">🔑</span>
+            Enter Your Password
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            [(ngModel)]="password" 
+            placeholder="Enter your password"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#f6433d] focus:ring-4 focus:ring-[#f6433d]/10 transition-all duration-300 outline-none text-gray-700 font-medium placeholder:text-gray-400"
+            (keyup.enter)="confirmTransaction()">
+          <p class="text-xs text-gray-500 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+            Password is required to authorize this transfer
+          </p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 px-6 py-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+        <button 
+          type="button"
+          (click)="closeModal()" 
+          class="w-full sm:w-auto px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all duration-300">
+          <span class="flex items-center justify-center gap-2">
+            <span>✕</span>
+            <span>Cancel</span>
+          </span>
+        </button>
+        <button 
+          type="button"
+          (click)="confirmTransaction()"
+          [disabled]="!password"
+          class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+          <span class="flex items-center justify-center gap-2">
+            <span>✓</span>
+            <span>Confirm Transfer</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

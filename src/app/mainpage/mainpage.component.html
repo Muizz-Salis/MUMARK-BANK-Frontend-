@@ -1,0 +1,357 @@
+<div *ngIf="currentUser" class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
+  
+  <!-- Decorative Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute w-96 h-96 bg-gradient-to-br from-[#ff817c]/10 to-[#f6433d]/10 rounded-full blur-3xl -top-48 -right-48 animate-pulse"></div>
+    <div class="absolute w-[500px] h-[500px] bg-gradient-to-br from-[#f6433d]/8 to-[#ff817c]/8 rounded-full blur-3xl -bottom-48 -left-48 animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute w-64 h-64 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl top-1/2 right-1/4 animate-pulse" style="animation-delay: 0.5s;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+    
+    <!-- Welcome Header -->
+    <div class="mb-8 animate-fade-in-up">
+      <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-100 p-6 lg:p-8">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <div class="text-sm text-gray-500 font-medium mb-1">Welcome back,</div>
+            <h1 class="text-3xl lg:text-4xl font-extrabold">
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#ff817c] via-[#f6433d] to-[#d63832]">
+                {{ currentUser.first_name }}
+              </span>
+            </h1>
+            <p class="text-gray-600 text-sm mt-1">Let's manage your finances today</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-xs text-gray-500 font-medium">Account Status</div>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-gray-700">Active</span>
+              </div>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
+              {{ currentUser.first_name?.charAt(0)?.toUpperCase() }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Information Card -->
+    <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.05s;">
+      <div class="bg-gradient-to-br from-[#ff817c] via-[#f6433d] to-[#d63832] rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
+        
+        <div class="relative z-10">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div class="text-white/80 text-sm font-medium mb-1">Your Account Number</div>
+              <div *ngIf="!isLoadingAccount && accountNumber" class="text-3xl lg:text-4xl font-bold tracking-wider font-mono">
+                {{ accountNumber }}
+              </div>
+              <div *ngIf="isLoadingAccount" class="flex items-center gap-2">
+                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                <span class="text-lg">Generating account number...</span>
+              </div>
+              <div *ngIf="!isLoadingAccount && !accountNumber" class="text-lg text-white/80">
+                No account number available
+              </div>
+            </div>
+            <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl">
+              💳
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <div class="text-white/80 text-sm font-medium mb-1">Account Balance</div>
+              <div class="text-2xl lg:text-3xl font-bold">
+                ₦{{ balance | number:'1.2-2' }}
+              </div>
+            </div>
+            <div>
+              <div class="text-white/80 text-sm font-medium mb-1">Account Holder</div>
+              <div class="text-xl font-semibold">
+                {{ currentUser.first_name }} {{ currentUser.last_name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats Cards (Optional - can add account balance, transactions, etc.) -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+      <div class="group bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm font-medium opacity-90">Quick Actions</div>
+          <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center text-xl backdrop-blur-sm">⚡</div>
+        </div>
+        <div class="text-3xl font-bold mb-1">6</div>
+        <div class="text-sm opacity-75">Available Services</div>
+      </div>
+
+      <div class="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-100 transform hover:-translate-y-1 transition-all duration-300">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm font-medium text-gray-600">Security</div>
+          <div class="w-10 h-10 bg-gradient-to-br from-[#ff817c]/10 to-[#f6433d]/10 rounded-lg flex items-center justify-center text-xl">🔒</div>
+        </div>
+        <div class="text-3xl font-bold text-gray-900 mb-1">100%</div>
+        <div class="text-sm text-gray-500">Protected</div>
+      </div>
+
+      <div class="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-100 transform hover:-translate-y-1 transition-all duration-300">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm font-medium text-gray-600">Support</div>
+          <div class="w-10 h-10 bg-gradient-to-br from-[#ff817c]/10 to-[#f6433d]/10 rounded-lg flex items-center justify-center text-xl">💬</div>
+        </div>
+        <div class="text-3xl font-bold text-gray-900 mb-1">24/7</div>
+        <div class="text-sm text-gray-500">Available</div>
+      </div>
+    </div>
+
+    <!-- Main Services Grid -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Banking Services</h2>
+        <div class="text-sm text-gray-500">Choose a service to continue</div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        
+        <!-- Deposit -->
+        <a href="/deposit" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              💰
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Deposit</h3>
+            <p class="text-sm text-gray-600">Add funds to your account securely</p>
+          </div>
+        </a>
+
+        <!-- BreezePay -->
+        <a href="/mainpage" class="group relative bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-2xl p-6 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#f6433d] to-[#d63832] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative z-10 text-white">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                💳
+              </div>
+              <span class="px-3 py-1 bg-green-400 text-green-900 text-xs font-bold rounded-full">New</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">BreezePay</h3>
+            <p class="text-sm text-white/90">Lightning-fast payment solution</p>
+          </div>
+        </a>
+
+        <!-- Swift Transfers -->
+        <a href="/sendmoney" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              ⚡
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Swift Transfers</h3>
+            <p class="text-sm text-gray-600">Instant money transfers</p>
+          </div>
+        </a>
+
+        <!-- Other Banks Transfers -->
+        <a href="/sendmoney" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              🏦
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Other Banks</h3>
+            <p class="text-sm text-gray-600">Transfer to any bank</p>
+          </div>
+        </a>
+
+        <!-- Airtime & Data -->
+        <a href="/airtimedata" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              📱
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Airtime & Data</h3>
+            <p class="text-sm text-gray-600">Top-up your phone</p>
+          </div>
+        </a>
+
+        <!-- Sport Wallet -->
+        <a href="/mainpage" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              ⚽
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Sport Wallet</h3>
+            <p class="text-sm text-gray-600">Fund your betting account</p>
+          </div>
+        </a>
+
+        <!-- Bills Payment -->
+        <a href="/mainpage" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              📄
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Bills Payment</h3>
+            <p class="text-sm text-gray-600">Pay utilities & services</p>
+          </div>
+        </a>
+
+        <!-- Data History -->
+        <a href="/data-history" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              📊
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Data History</h3>
+            <p class="text-sm text-gray-600">View data purchases</p>
+          </div>
+        </a>
+
+        <!-- Airtime History -->
+        <a href="/airtime-history" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              📞
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Airtime History</h3>
+            <p class="text-sm text-gray-600">View airtime purchases</p>
+          </div>
+        </a>
+
+        <!-- Investment Management -->
+        <a href="/mainpage" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                📈
+              </div>
+              <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">New</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Investments</h3>
+            <p class="text-sm text-gray-600">Manage your portfolio</p>
+          </div>
+        </a>
+
+        <!-- Register (Admin) -->
+        <a href="/signup" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                👤
+              </div>
+              <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">New</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Register (Admin)</h3>
+            <p class="text-sm text-gray-600">Create new user account</p>
+          </div>
+        </a>
+
+        <!-- Transaction History -->
+        <a href="/transactionhistory" class="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#ff817c]/30 transform hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              📝
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Transaction History</h3>
+            <p class="text-sm text-gray-600">View all transactions</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- 1-Tap Payment Section -->
+    <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+      <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-100 p-6 lg:p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-xl flex items-center justify-center text-2xl shadow-lg">
+            ⚡
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">1-Tap Payment</h3>
+            <p class="text-sm text-gray-600">Quick access to your frequent payments</p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 text-center border border-gray-200">
+          <div class="text-4xl mb-3">💳</div>
+          <p class="text-gray-700 font-medium">You do not have any 1-Tap Payments set-up</p>
+          <p class="text-sm text-gray-500 mt-2">Configure quick payments for faster transactions</p>
+          <button class="mt-4 px-6 py-2 bg-gradient-to-r from-[#ff817c] to-[#f6433d] text-white font-semibold rounded-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            Set Up Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Notice -->
+    <div class="animate-fade-in-up" style="animation-delay: 0.3s;">
+      <div class="bg-gradient-to-br from-[#ff817c]/5 to-[#f6433d]/5 backdrop-blur-md rounded-2xl shadow-lg border border-[#ff817c]/20 p-6 lg:p-8">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
+          <div class="flex-shrink-0">
+            <div class="w-20 h-20 bg-gradient-to-br from-[#ff817c] to-[#f6433d] rounded-2xl flex items-center justify-center text-4xl shadow-xl">
+              🔒
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Secure the gates!</h3>
+            <p class="text-gray-700 mb-2">Do not give fraudsters access to your account. <span class="font-semibold">Never share your personal banking information</span> with anyone.</p>
+            <p class="text-gray-600 text-sm">Call our 24-hour Contact Center to report any suspicious phone call, text message, or email.</p>
+          </div>
+          <div class="flex-shrink-0">
+            <button class="px-6 py-3 bg-gradient-to-r from-[#ff817c] to-[#f6433d] text-white font-bold rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+              Contact Support
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Fixed Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-t border-gray-200 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex justify-around items-center">
+        <a href="/" class="group flex flex-col items-center gap-1 px-4 py-2 rounded-xl hover:bg-gradient-to-br hover:from-[#ff817c]/10 hover:to-[#f6433d]/10 transition-all duration-300">
+          <div class="text-2xl group-hover:scale-110 transition-transform duration-300">🏠</div>
+          <span class="text-xs font-medium text-gray-600 group-hover:text-[#f6433d]">Home</span>
+        </a>
+        <a href="/mainpage" class="group flex flex-col items-center gap-1 px-4 py-2 rounded-xl bg-gradient-to-br from-[#ff817c]/10 to-[#f6433d]/10 border border-[#ff817c]/20">
+          <div class="text-2xl group-hover:scale-110 transition-transform duration-300">💼</div>
+          <span class="text-xs font-medium text-[#f6433d]">Services</span>
+        </a>
+        <a href="/sendmoney" class="group flex flex-col items-center gap-1 px-4 py-2 rounded-xl hover:bg-gradient-to-br hover:from-[#ff817c]/10 hover:to-[#f6433d]/10 transition-all duration-300">
+          <div class="text-2xl group-hover:scale-110 transition-transform duration-300">💸</div>
+          <span class="text-xs font-medium text-gray-600 group-hover:text-[#f6433d]">Transfer</span>
+        </a>
+        <a href="/transactionhistory" class="group flex flex-col items-center gap-1 px-4 py-2 rounded-xl hover:bg-gradient-to-br hover:from-[#ff817c]/10 hover:to-[#f6433d]/10 transition-all duration-300">
+          <div class="text-2xl group-hover:scale-110 transition-transform duration-300">📊</div>
+          <span class="text-xs font-medium text-gray-600 group-hover:text-[#f6433d]">History</span>
+        </a>
+        <a href="/profile" class="group flex flex-col items-center gap-1 px-4 py-2 rounded-xl hover:bg-gradient-to-br hover:from-[#ff817c]/10 hover:to-[#f6433d]/10 transition-all duration-300">
+          <div class="text-2xl group-hover:scale-110 transition-transform duration-300">👤</div>
+          <span class="text-xs font-medium text-gray-600 group-hover:text-[#f6433d]">Profile</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
